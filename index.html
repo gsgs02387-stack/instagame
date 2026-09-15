@@ -1,0 +1,2621 @@
+```html
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagame</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+}
+
+button,input,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= AUTH ================= */
+
+.auth{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:390px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:28px;
+}
+
+.logo{
+    text-align:center;
+    font-size:34px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#ff3040,#ff00a8,#7b61ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.auth-box input{
+    width:100%;
+    padding:14px;
+    margin:7px 0;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#1b1b1b;
+    color:white;
+    outline:none;
+}
+
+.main-btn{
+    width:100%;
+    border:0;
+    padding:13px;
+    border-radius:10px;
+    margin-top:10px;
+    background:#0095f6;
+    color:#fff;
+    font-weight:bold;
+}
+
+.secondary-btn{
+    width:100%;
+    border:1px solid #333;
+    padding:13px;
+    border-radius:10px;
+    margin-top:10px;
+    background:#181818;
+    color:#fff;
+}
+
+.remember{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:10px 0;
+    font-size:14px;
+}
+
+.auth-error{
+    color:#ff5252;
+    text-align:center;
+    margin-top:10px;
+}
+
+/* ================= APP ================= */
+
+.app{
+    min-height:100vh;
+    padding-bottom:70px;
+}
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    background:#000;
+    border-bottom:1px solid #222;
+}
+
+.top-logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.top-actions{
+    display:flex;
+    gap:14px;
+}
+
+.icon-btn{
+    background:none;
+    border:0;
+    color:white;
+    font-size:23px;
+}
+
+.page{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+}
+
+/* ================= STORIES ================= */
+
+.stories{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding:15px;
+    border-bottom:1px solid #222;
+}
+
+.story{
+    min-width:65px;
+    text-align:center;
+    font-size:11px;
+}
+
+.story-avatar{
+    width:58px;
+    height:58px;
+    padding:2px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+    margin:auto;
+}
+
+.story-avatar img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #000;
+}
+
+/* ================= POST ================= */
+
+.post{
+    border-bottom:1px solid #222;
+    padding-bottom:15px;
+}
+
+.post-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#222;
+}
+
+.username{
+    font-weight:bold;
+}
+
+.verified{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:17px;
+    height:17px;
+    border-radius:50%;
+    background:#3797f0;
+    color:white;
+    font-size:11px;
+    margin-left:3px;
+}
+
+.post-image{
+    width:100%;
+    max-height:650px;
+    object-fit:cover;
+    display:block;
+}
+
+.post-actions{
+    display:flex;
+    gap:17px;
+    padding:10px 12px 4px;
+}
+
+.post-actions button{
+    background:none;
+    border:0;
+    color:white;
+    font-size:27px;
+}
+
+.liked{
+    color:#ff3040!important;
+}
+
+.post-info{
+    padding:0 12px;
+}
+
+.likes{
+    font-weight:bold;
+    margin:5px 0;
+}
+
+.caption{
+    margin:5px 0;
+    line-height:1.4;
+}
+
+.comments-link{
+    color:#888;
+    margin-top:8px;
+    cursor:pointer;
+}
+
+/* ================= CREATE ================= */
+
+.create-box{
+    padding:20px;
+}
+
+.create-box h2{
+    margin-bottom:15px;
+}
+
+.create-box textarea{
+    width:100%;
+    height:100px;
+    padding:13px;
+    background:#1b1b1b;
+    color:white;
+    border:1px solid #333;
+    border-radius:10px;
+    resize:none;
+}
+
+.file-box{
+    margin-top:15px;
+    padding:15px;
+    border:1px dashed #444;
+    border-radius:10px;
+}
+
+.preview{
+    width:100%;
+    max-height:450px;
+    object-fit:contain;
+    margin-top:15px;
+    border-radius:10px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    padding:15px;
+}
+
+.search-box input{
+    width:100%;
+    padding:14px;
+    background:#1b1b1b;
+    border:0;
+    border-radius:10px;
+    color:white;
+}
+
+.user-result{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid #222;
+}
+
+/* ================= PROFILE ================= */
+
+.profile{
+    padding:20px;
+}
+
+.profile-head{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.profile-avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.stats{
+    display:flex;
+    gap:22px;
+    margin-top:15px;
+}
+
+.stat{
+    text-align:center;
+}
+
+.profile-bio{
+    margin-top:18px;
+    color:#ddd;
+}
+
+.profile-actions{
+    margin-top:15px;
+}
+
+.profile-actions button{
+    width:100%;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+    margin-top:20px;
+}
+
+.grid img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+}
+
+/* ================= ADMIN ================= */
+
+.admin{
+    padding:20px;
+}
+
+.admin-title{
+    font-size:27px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.admin-card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:14px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.admin-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.admin-actions{
+    display:grid;
+    gap:8px;
+    margin-top:12px;
+}
+
+.admin-actions button{
+    padding:11px;
+    border:0;
+    border-radius:8px;
+    color:white;
+    background:#252525;
+}
+
+.admin-actions .verify{
+    background:#0095f6;
+}
+
+.admin-actions .danger{
+    background:#d63031;
+}
+
+.admin-number{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:1px solid #333;
+    border-radius:8px;
+    background:#111;
+    color:white;
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:62px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    background:#000;
+    border-top:1px solid #222;
+    z-index:50;
+}
+
+.bottom-nav button{
+    background:none;
+    border:0;
+    color:white;
+    font-size:24px;
+}
+
+.bottom-nav button.active{
+    color:#0095f6;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    align-items:flex-end;
+    z-index:100;
+}
+
+.modal-box{
+    width:100%;
+    max-width:600px;
+    max-height:80vh;
+    overflow:auto;
+    background:#151515;
+    border-radius:20px 20px 0 0;
+    padding:20px;
+    margin:auto auto 0;
+}
+
+.close{
+    float:right;
+    background:none;
+    border:0;
+    color:white;
+    font-size:27px;
+}
+
+.comment{
+    padding:12px 0;
+    border-bottom:1px solid #292929;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:80px;
+    transform:translateX(-50%);
+    background:#222;
+    padding:12px 18px;
+    border-radius:10px;
+    z-index:200;
+    box-shadow:0 5px 20px #000;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="authScreen" class="auth">
+
+    <div class="auth-box">
+
+        <div class="logo gradient">
+            Instagame
+        </div>
+
+        <div id="loginForm">
+
+            <input
+                id="loginUsername"
+                placeholder="Username">
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Parolă">
+
+            <div class="remember">
+                <input
+                    id="rememberMe"
+                    type="checkbox">
+
+                <label for="rememberMe">
+                    Ține-mă minte
+                </label>
+            </div>
+
+            <button
+                class="main-btn"
+                onclick="login()">
+                Intră în cont
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="showRegister()">
+                Creează cont
+            </button>
+
+        </div>
+
+        <div id="registerForm" class="hidden">
+
+            <input
+                id="registerUsername"
+                placeholder="Username">
+
+            <input
+                id="registerName"
+                placeholder="Nume">
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Parolă">
+
+            <input
+                id="registerPassword2"
+                type="password"
+                placeholder="Repetă parola">
+
+            <button
+                class="main-btn"
+                onclick="register()">
+                Creează cont
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="showLogin()">
+                Am deja cont
+            </button>
+
+        </div>
+
+        <div id="authError" class="auth-error"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app" class="app hidden">
+
+    <div class="topbar">
+
+        <div class="top-logo gradient">
+            Instagame
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                onclick="showSearch()">
+                ⌕
+            </button>
+
+            <button
+                id="adminTopButton"
+                class="icon-btn hidden"
+                onclick="showAdmin()">
+                👑
+            </button>
+
+        </div>
+
+    </div>
+
+    <main id="page" class="page"></main>
+
+    <nav class="bottom-nav">
+
+        <button
+            id="navHome"
+            onclick="showHome()">
+            ⌂
+        </button>
+
+        <button
+            id="navSearch"
+            onclick="showSearch()">
+            ⌕
+        </button>
+
+        <button
+            id="navCreate"
+            onclick="showCreate()">
+            ＋
+        </button>
+
+        <button
+            id="navProfile"
+            onclick="showProfile()">
+            ♙
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- ================= COMMENTS ================= -->
+
+<div
+    id="commentModal"
+    class="modal hidden">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeComments()">
+            ×
+        </button>
+
+        <h2>Comentarii</h2>
+
+        <div id="commentsList"></div>
+
+        <input
+            id="commentInput"
+            placeholder="Scrie un comentariu..."
+            style="
+                width:100%;
+                margin-top:15px;
+                padding:13px;
+                background:#222;
+                border:0;
+                border-radius:10px;
+                color:white;
+            ">
+
+        <button
+            class="main-btn"
+            onclick="addComment()">
+            Comentează
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CONFIG
+   ===================================================== */
+
+const ADMIN_USERNAME = "normaldev";
+
+const USERS_KEY = "instagame_users_v4";
+const POSTS_KEY = "instagame_posts_v4";
+const CURRENT_KEY = "instagame_current_v4";
+const REMEMBER_KEY = "instagame_remember_v4";
+const SESSION_KEY = "instagame_session_v4";
+
+
+/* =====================================================
+   DATA
+   ===================================================== */
+
+let users =
+    JSON.parse(
+        localStorage.getItem(USERS_KEY)
+    ) || [];
+
+let posts =
+    JSON.parse(
+        localStorage.getItem(POSTS_KEY)
+    ) || [];
+
+let currentUserId = null;
+let selectedImage = null;
+let currentCommentPost = null;
+
+
+/* =====================================================
+   SAVE
+   ===================================================== */
+
+function save(){
+
+    localStorage.setItem(
+        USERS_KEY,
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        POSTS_KEY,
+        JSON.stringify(posts)
+    );
+}
+
+
+/* =====================================================
+   USER
+   ===================================================== */
+
+function getUser(id){
+
+    return users.find(
+        u => u.id === id
+    );
+}
+
+function currentUser(){
+
+    return getUser(currentUserId);
+}
+
+function isAdmin(){
+
+    const user = currentUser();
+
+    if(!user) return false;
+
+    return user.username.toLowerCase()
+        === ADMIN_USERNAME.toLowerCase();
+}
+
+
+/* =====================================================
+   AUTH
+   ===================================================== */
+
+function showRegister(){
+
+    document
+        .getElementById("loginForm")
+        .classList.add("hidden");
+
+    document
+        .getElementById("registerForm")
+        .classList.remove("hidden");
+
+    clearError();
+}
+
+function showLogin(){
+
+    document
+        .getElementById("registerForm")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginForm")
+        .classList.remove("hidden");
+
+    clearError();
+}
+
+function setError(text){
+
+    document
+        .getElementById("authError")
+        .textContent = text;
+}
+
+function clearError(){
+
+    document
+        .getElementById("authError")
+        .textContent = "";
+}
+
+
+/* =====================================================
+   REGISTER
+   ===================================================== */
+
+function register(){
+
+    const username =
+        document
+        .getElementById("registerUsername")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const name =
+        document
+        .getElementById("registerName")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
+
+    const password2 =
+        document
+        .getElementById("registerPassword2")
+        .value;
+
+
+    if(!username || !name || !password || !password2){
+
+        setError("Completează toate câmpurile.");
+
+        return;
+    }
+
+    if(username.length < 3){
+
+        setError("Username-ul trebuie să aibă cel puțin 3 caractere.");
+
+        return;
+    }
+
+    if(!/^[a-z0-9_.]+$/.test(username)){
+
+        setError("Username-ul poate conține doar litere, cifre, _ și .");
+
+        return;
+    }
+
+    if(password.length < 4){
+
+        setError("Parola trebuie să aibă cel puțin 4 caractere.");
+
+        return;
+    }
+
+    if(password !== password2){
+
+        setError("Parolele nu sunt identice.");
+
+        return;
+    }
+
+    const exists =
+        users.some(
+            u =>
+            u.username.toLowerCase()
+            === username
+        );
+
+    if(exists){
+
+        setError("Acest username există deja.");
+
+        return;
+    }
+
+    const user = {
+
+        id:
+            "user_" +
+            Date.now() +
+            "_" +
+            Math.random()
+            .toString(36)
+            .slice(2),
+
+        username,
+
+        name,
+
+        password,
+
+        avatar:"",
+
+        bio:"",
+
+        verified:false,
+
+        admin:
+            username === ADMIN_USERNAME,
+
+        followers:[],
+
+        following:[],
+
+        followerDisplay:null,
+
+        createdAt:Date.now()
+    };
+
+
+    users.push(user);
+
+    save();
+
+    currentUserId = user.id;
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        currentUserId
+    );
+
+    localStorage.setItem(
+        REMEMBER_KEY,
+        "true"
+    );
+
+    openApp();
+
+    toast("Cont creat cu succes! 🎉");
+}
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+function login(){
+
+    const username =
+        document
+        .getElementById("loginUsername")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+    const remember =
+        document
+        .getElementById("rememberMe")
+        .checked;
+
+
+    const user =
+        users.find(
+            u =>
+            u.username.toLowerCase()
+            === username &&
+            u.password === password
+        );
+
+
+    if(!user){
+
+        setError(
+            "Username sau parolă greșită."
+        );
+
+        return;
+    }
+
+
+    currentUserId = user.id;
+
+
+    if(remember){
+
+        localStorage.setItem(
+            CURRENT_KEY,
+            currentUserId
+        );
+
+        localStorage.setItem(
+            REMEMBER_KEY,
+            "true"
+        );
+
+        sessionStorage.removeItem(
+            SESSION_KEY
+        );
+
+    }else{
+
+        localStorage.removeItem(
+            CURRENT_KEY
+        );
+
+        localStorage.removeItem(
+            REMEMBER_KEY
+        );
+
+        sessionStorage.setItem(
+            SESSION_KEY,
+            currentUserId
+        );
+    }
+
+
+    openApp();
+}
+
+
+/* =====================================================
+   APP
+   ===================================================== */
+
+function openApp(){
+
+    document
+        .getElementById("authScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+
+    const adminButton =
+        document.getElementById(
+            "adminTopButton"
+        );
+
+
+    if(isAdmin()){
+
+        adminButton
+            .classList.remove("hidden");
+
+    }else{
+
+        adminButton
+            .classList.add("hidden");
+    }
+
+
+    showHome();
+}
+
+
+/* =====================================================
+   STARTUP
+   ===================================================== */
+
+function startup(){
+
+    const savedId =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
+
+    const sessionId =
+        sessionStorage.getItem(
+            SESSION_KEY
+        );
+
+    const remember =
+        localStorage.getItem(
+            REMEMBER_KEY
+        );
+
+
+    if(
+        remember === "true" &&
+        savedId &&
+        getUser(savedId)
+    ){
+
+        currentUserId = savedId;
+
+        openApp();
+
+        return;
+    }
+
+
+    if(
+        sessionId &&
+        getUser(sessionId)
+    ){
+
+        currentUserId = sessionId;
+
+        openApp();
+
+        return;
+    }
+
+
+    showLogin();
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    localStorage.removeItem(
+        REMEMBER_KEY
+    );
+
+    sessionStorage.removeItem(
+        SESSION_KEY
+    );
+
+    currentUserId = null;
+
+    document
+        .getElementById("app")
+        .classList.add("hidden");
+
+    document
+        .getElementById("authScreen")
+        .classList.remove("hidden");
+
+    showLogin();
+}
+
+
+/* =====================================================
+   HOME
+   ===================================================== */
+
+function showHome(){
+
+    setActive("navHome");
+
+    page.innerHTML = `
+
+        <div class="stories"
+             id="stories">
+        </div>
+
+        <div id="feed">
+            <div style="
+                padding:40px;
+                text-align:center;
+                color:#888">
+                Se încarcă...
+            </div>
+        </div>
+    `;
+
+    loadStories();
+    loadFeed();
+}
+
+
+/* =====================================================
+   STORIES
+   ===================================================== */
+
+function loadStories(){
+
+    const stories =
+        document.getElementById(
+            "stories"
+        );
+
+    stories.innerHTML = "";
+
+    users.forEach(user => {
+
+        stories.innerHTML += `
+
+            <div class="story"
+                 onclick="openProfile('${user.id}')">
+
+                <div class="story-avatar">
+
+                    <img
+                        src="${user.avatar || defaultAvatar(user.username)}">
+
+                </div>
+
+                <div>
+                    ${escapeHtml(user.username)}
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+
+/* =====================================================
+   FEED
+   ===================================================== */
+
+function loadFeed(){
+
+    const feed =
+        document.getElementById(
+            "feed"
+        );
+
+    feed.innerHTML = "";
+
+
+    const sorted =
+        [...posts]
+        .sort(
+            (a,b) =>
+            b.createdAt - a.createdAt
+        );
+
+
+    if(sorted.length === 0){
+
+        feed.innerHTML = `
+
+            <div style="
+                padding:50px;
+                text-align:center;
+                color:#888">
+
+                Nu există încă postări.<br><br>
+
+                Fii primul care postează! 📸
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    sorted.forEach(post => {
+
+        const user =
+            getUser(post.userId);
+
+        if(!user) return;
+
+
+        const liked =
+            (post.likes || [])
+            .includes(currentUserId);
+
+
+        const comments =
+            post.comments || [];
+
+
+        const verified =
+            user.verified
+            ? `<span class="verified">✓</span>`
+            : "";
+
+
+        const postElement =
+            document.createElement(
+                "div"
+            );
+
+        postElement.className =
+            "post";
+
+
+        postElement.innerHTML = `
+
+            <div class="post-head"
+                 onclick="openProfile('${user.id}')">
+
+                <img
+                    class="avatar"
+                    src="${user.avatar || defaultAvatar(user.username)}">
+
+                <div>
+
+                    <div class="username">
+
+                        ${escapeHtml(user.username)}
+
+                        ${verified}
+
+                    </div>
+
+                    <div style="
+                        color:#888;
+                        font-size:12px">
+
+                        ${escapeHtml(user.name)}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            ${
+                post.image
+                ? `
+                    <img
+                        class="post-image"
+                        src="${post.image}">
+                  `
+                : ""
+            }
+
+
+            <div class="post-actions">
+
+                <button
+                    class="${liked ? "liked" : ""}"
+                    onclick="toggleLike('${post.id}')">
+
+                    ${liked ? "♥" : "♡"}
+
+                </button>
+
+
+                <button
+                    onclick="openComments('${post.id}')">
+
+                    💬
+
+                </button>
+
+
+                <button
+                    onclick="sharePost('${post.id}')">
+
+                    ↗
+
+                </button>
+
+            </div>
+
+
+            <div class="post-info">
+
+                <div class="likes">
+
+                    ${(post.likes || []).length}
+                    aprecieri
+
+                </div>
+
+
+                <div class="caption">
+
+                    <b>
+                        ${escapeHtml(user.username)}
+                    </b>
+
+                    ${escapeHtml(post.caption || "")}
+
+                </div>
+
+
+                <div
+                    class="comments-link"
+                    onclick="openComments('${post.id}')">
+
+                    Vezi ${comments.length}
+                    comentarii
+
+                </div>
+
+            </div>
+        `;
+
+
+        feed.appendChild(
+            postElement
+        );
+    });
+}
+
+
+/* =====================================================
+   CREATE POST
+   ===================================================== */
+
+function showCreate(){
+
+    setActive("navCreate");
+
+    selectedImage = null;
+
+
+    page.innerHTML = `
+
+        <div class="create-box">
+
+            <h2>Postare nouă</h2>
+
+
+            <textarea
+                id="caption"
+                placeholder="Scrie o descriere...">
+            </textarea>
+
+
+            <div class="file-box">
+
+                <input
+                    id="imageInput"
+                    type="file"
+                    accept="image/*">
+
+            </div>
+
+
+            <img
+                id="preview"
+                class="preview hidden">
+
+
+            <button
+                class="main-btn"
+                onclick="createPost()">
+
+                Publică
+
+            </button>
+
+        </div>
+    `;
+
+
+    document
+        .getElementById("imageInput")
+        .addEventListener(
+            "change",
+            previewImage
+        );
+}
+
+
+function previewImage(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+
+    if(file.size > 4 * 1024 * 1024){
+
+        alert(
+            "Imaginea este prea mare. Alege una sub 4 MB."
+        );
+
+        return;
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(){
+
+        selectedImage =
+            reader.result;
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        preview.src =
+            selectedImage;
+
+
+        preview.classList.remove(
+            "hidden"
+        );
+    };
+
+
+    reader.readAsDataURL(file);
+}
+
+
+function createPost(){
+
+    const caption =
+        document
+        .getElementById("caption")
+        .value
+        .trim();
+
+
+    if(!selectedImage){
+
+        alert(
+            "Alege o fotografie."
+        );
+
+        return;
+    }
+
+
+    const post = {
+
+        id:
+            "post_" +
+            Date.now() +
+            "_" +
+            Math.random()
+            .toString(36)
+            .slice(2),
+
+        userId:
+            currentUserId,
+
+        image:
+            selectedImage,
+
+        caption,
+
+        likes:[],
+
+        comments:[],
+
+        createdAt:
+            Date.now()
+    };
+
+
+    posts.push(post);
+
+    save();
+
+    selectedImage = null;
+
+    toast(
+        "Postarea a fost publicată! 📸"
+    );
+
+    showHome();
+}
+
+
+/* =====================================================
+   LIKE
+   ===================================================== */
+
+function toggleLike(postId){
+
+    const post =
+        posts.find(
+            p => p.id === postId
+        );
+
+    if(!post) return;
+
+
+    if(!post.likes){
+        post.likes = [];
+    }
+
+
+    const index =
+        post.likes.indexOf(
+            currentUserId
+        );
+
+
+    if(index === -1){
+
+        post.likes.push(
+            currentUserId
+        );
+
+    }else{
+
+        post.likes.splice(
+            index,
+            1
+        );
+    }
+
+
+    save();
+
+    loadFeed();
+}
+
+
+/* =====================================================
+   COMMENTS
+   ===================================================== */
+
+function openComments(postId){
+
+    currentCommentPost =
+        postId;
+
+
+    document
+        .getElementById(
+            "commentModal"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+    loadComments();
+}
+
+
+function closeComments(){
+
+    currentCommentPost = null;
+
+    document
+        .getElementById(
+            "commentModal"
+        )
+        .classList.add(
+            "hidden"
+        );
+}
+
+
+function loadComments(){
+
+    const post =
+        posts.find(
+            p => p.id === currentCommentPost
+        );
+
+
+    const list =
+        document.getElementById(
+            "commentsList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if(
+        !post ||
+        !post.comments ||
+        post.comments.length === 0
+    ){
+
+        list.innerHTML = `
+            <p style="
+                color:#888;
+                margin-top:15px">
+
+                Niciun comentariu.
+
+            </p>
+        `;
+
+        return;
+    }
+
+
+    post.comments.forEach(comment => {
+
+        list.innerHTML += `
+
+            <div class="comment">
+
+                <b>
+                    ${escapeHtml(comment.username)}
+                </b>
+
+                ${escapeHtml(comment.text)}
+
+            </div>
+        `;
+    });
+}
+
+
+function addComment(){
+
+    const input =
+        document.getElementById(
+            "commentInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text) return;
+
+
+    const post =
+        posts.find(
+            p => p.id === currentCommentPost
+        );
+
+
+    if(!post) return;
+
+
+    if(!post.comments){
+        post.comments = [];
+    }
+
+
+    const user =
+        currentUser();
+
+
+    post.comments.push({
+
+        id:
+            "comment_" +
+            Date.now(),
+
+        userId:
+            currentUserId,
+
+        username:
+            user.username,
+
+        text,
+
+        createdAt:
+            Date.now()
+    });
+
+
+    input.value = "";
+
+    save();
+
+    loadComments();
+
+    loadFeed();
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+function showSearch(){
+
+    setActive("navSearch");
+
+
+    page.innerHTML = `
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                placeholder="Caută persoane..."
+                oninput="searchUsers()">
+
+
+            <div id="searchResults"></div>
+
+        </div>
+    `;
+}
+
+
+function searchUsers(){
+
+    const text =
+        document
+        .getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const results =
+        document.getElementById(
+            "searchResults"
+        );
+
+
+    results.innerHTML = "";
+
+
+    if(!text) return;
+
+
+    const found =
+        users.filter(
+            user =>
+            user.username
+            .toLowerCase()
+            .includes(text)
+        );
+
+
+    found.forEach(user => {
+
+        const verified =
+            user.verified
+            ? `<span class="verified">✓</span>`
+            : "";
+
+
+        results.innerHTML += `
+
+            <div
+                class="user-result"
+                onclick="openProfile('${user.id}')">
+
+                <img
+                    class="avatar"
+                    src="${user.avatar || defaultAvatar(user.username)}">
+
+
+                <div>
+
+                    <b>
+
+                        ${escapeHtml(user.username)}
+
+                        ${verified}
+
+                    </b>
+
+                    <div style="color:#888">
+
+                        ${escapeHtml(user.name)}
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+
+/* =====================================================
+   PROFILE
+   ===================================================== */
+
+function showProfile(){
+
+    setActive("navProfile");
+
+    openProfile(currentUserId);
+}
+
+
+function openProfile(userId){
+
+    const user =
+        getUser(userId);
+
+
+    if(!user) return;
+
+
+    const userPosts =
+        posts
+        .filter(
+            post =>
+            post.userId === userId
+        )
+        .sort(
+            (a,b) =>
+            b.createdAt - a.createdAt
+        );
+
+
+    const isMe =
+        userId === currentUserId;
+
+
+    const following =
+        (user.followers || [])
+        .includes(currentUserId);
+
+
+    const verified =
+        user.verified
+        ? `<span class="verified">✓</span>`
+        : "";
+
+
+    const displayedFollowers =
+        user.followerDisplay !== null &&
+        user.followerDisplay !== undefined
+        ? user.followerDisplay
+        : (user.followers || []).length;
+
+
+    page.innerHTML = `
+
+        <div class="profile">
+
+            <div class="profile-head">
+
+                <img
+                    class="profile-avatar"
+                    src="${user.avatar || defaultAvatar(user.username)}">
+
+
+                <div>
+
+                    <h2>
+
+                        ${escapeHtml(user.username)}
+
+                        ${verified}
+
+                    </h2>
+
+
+                    <div>
+                        ${escapeHtml(user.name)}
+                    </div>
+
+
+                    <div class="stats">
+
+                        <div class="stat">
+
+                            <b>
+                                ${userPosts.length}
+                            </b>
+
+                            <br>
+                            postări
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <b>
+                                ${displayedFollowers}
+                            </b>
+
+                            <br>
+                            urmăritori
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <b>
+                                ${(user.following || []).length}
+                            </b>
+
+                            <br>
+                            urmărește
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-bio">
+
+                ${escapeHtml(user.bio || "")}
+
+            </div>
+
+
+            <div class="profile-actions">
+
+                ${
+                    isMe
+                    ?
+                    `
+                        <button
+                            class="secondary-btn"
+                            onclick="logout()">
+
+                            Ieșire din cont
+
+                        </button>
+                    `
+                    :
+                    `
+                        <button
+                            class="main-btn"
+                            onclick="toggleFollow('${user.id}')">
+
+                            ${
+                                following
+                                ? "Nu mai urmări"
+                                : "Urmărește"
+                            }
+
+                        </button>
+                    `
+                }
+
+            </div>
+
+
+            <div class="grid">
+
+                ${
+                    userPosts.map(
+                        post =>
+                        `
+                            <img
+                                src="${post.image}">
+                        `
+                    ).join("")
+                }
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   FOLLOW
+   ===================================================== */
+
+function toggleFollow(userId){
+
+    if(userId === currentUserId)
+        return;
+
+
+    const me =
+        currentUser();
+
+
+    const target =
+        getUser(userId);
+
+
+    if(!me || !target)
+        return;
+
+
+    if(!me.following)
+        me.following = [];
+
+
+    if(!target.followers)
+        target.followers = [];
+
+
+    const index =
+        me.following.indexOf(
+            userId
+        );
+
+
+    if(index === -1){
+
+        me.following.push(
+            userId
+        );
+
+        target.followers.push(
+            currentUserId
+        );
+
+    }else{
+
+        me.following.splice(
+            index,
+            1
+        );
+
+        const followerIndex =
+            target.followers.indexOf(
+                currentUserId
+            );
+
+
+        if(followerIndex !== -1){
+
+            target.followers.splice(
+                followerIndex,
+                1
+            );
+        }
+    }
+
+
+    save();
+
+    openProfile(userId);
+}
+
+
+/* =====================================================
+   ADMIN PANEL
+   ===================================================== */
+
+function showAdmin(){
+
+    if(!isAdmin()){
+
+        alert(
+            "Nu ai acces la Admin Panel."
+        );
+
+        return;
+    }
+
+
+    page.innerHTML = `
+
+        <div class="admin">
+
+            <div class="admin-title">
+
+                👑 Admin Panel
+
+            </div>
+
+
+            <div style="
+                color:#888;
+                margin-bottom:20px">
+
+                Admin:
+                <b style="color:white">
+                    ${escapeHtml(currentUser().username)}
+                </b>
+
+            </div>
+
+
+            <div id="adminUsers"></div>
+
+        </div>
+    `;
+
+
+    renderAdminUsers();
+}
+
+
+function renderAdminUsers(){
+
+    const container =
+        document.getElementById(
+            "adminUsers"
+        );
+
+
+    container.innerHTML = "";
+
+
+    users.forEach(user => {
+
+        const isVerified =
+            user.verified;
+
+
+        const displayed =
+            user.followerDisplay !== null &&
+            user.followerDisplay !== undefined
+            ? user.followerDisplay
+            : (user.followers || []).length;
+
+
+        container.innerHTML += `
+
+            <div class="admin-card">
+
+                <div class="admin-user">
+
+                    <img
+                        class="avatar"
+                        src="${user.avatar || defaultAvatar(user.username)}">
+
+
+                    <div>
+
+                        <b>
+
+                            ${escapeHtml(user.username)}
+
+                            ${
+                                user.verified
+                                ? `<span class="verified">✓</span>`
+                                : ""
+                            }
+
+                        </b>
+
+                        <div style="
+                            color:#888">
+
+                            ${escapeHtml(user.name)}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    margin-top:10px;
+                    color:#aaa">
+
+                    Urmăritori reali:
+                    ${(user.followers || []).length}
+
+                </div>
+
+
+                <div class="admin-actions">
+
+                    <button
+                        class="verify"
+                        onclick="toggleVerified('${user.id}')">
+
+                        ${
+                            isVerified
+                            ? "❌ Scoate verificarea"
+                            : "🔵 Verifică utilizatorul"
+                        }
+
+                    </button>
+
+
+                    <input
+                        id="followers_${user.id}"
+                        class="admin-number"
+                        type="number"
+                        min="0"
+                        value="${displayed}"
+                        placeholder="Număr urmăritori afișat">
+
+
+                    <button
+                        onclick="setFollowers('${user.id}')">
+
+                        👥 Setează urmăritori afișați
+
+                    </button>
+
+
+                    ${
+                        user.id !== currentUserId
+                        ?
+                        `
+                            <button
+                                class="danger"
+                                onclick="deleteUser('${user.id}')">
+
+                                🗑️ Șterge contul
+
+                            </button>
+                        `
+                        :
+                        `
+                            <button disabled>
+
+                                👑 Acesta e contul tău
+
+                            </button>
+                        `
+                    }
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+
+/* =====================================================
+   ADMIN VERIFY
+   ===================================================== */
+
+function toggleVerified(userId){
+
+    if(!isAdmin()) return;
+
+
+    const user =
+        getUser(userId);
+
+
+    if(!user) return;
+
+
+    user.verified =
+        !user.verified;
+
+
+    save();
+
+    renderAdminUsers();
+
+    toast(
+        user.verified
+        ? "Utilizator verificat 🔵"
+        : "Verificarea a fost scoasă"
+    );
+}
+
+
+/* =====================================================
+   ADMIN FOLLOWER DISPLAY
+   ===================================================== */
+
+function setFollowers(userId){
+
+    if(!isAdmin()) return;
+
+
+    const user =
+        getUser(userId);
+
+
+    const input =
+        document.getElementById(
+            "followers_" + userId
+        );
+
+
+    const value =
+        parseInt(
+            input.value
+        );
+
+
+    if(isNaN(value) || value < 0){
+
+        alert(
+            "Introdu un număr valid."
+        );
+
+        return;
+    }
+
+
+    user.followerDisplay =
+        value;
+
+
+    save();
+
+    renderAdminUsers();
+
+    toast(
+        "Numărul afișat a fost schimbat."
+    );
+}
+
+
+/* =====================================================
+   ADMIN DELETE USER
+   ===================================================== */
+
+function deleteUser(userId){
+
+    if(!isAdmin()) return;
+
+
+    const user =
+        getUser(userId);
+
+
+    if(!user) return;
+
+
+    if(
+        !confirm(
+            "Sigur vrei să ștergi contul " +
+            user.username +
+            "?"
+        )
+    ){
+
+        return;
+    }
+
+
+    users =
+        users.filter(
+            u => u.id !== userId
+        );
+
+
+    posts =
+        posts.filter(
+            p => p.userId !== userId
+        );
+
+
+    save();
+
+    renderAdminUsers();
+
+    toast(
+        "Contul a fost șters."
+    );
+}
+
+
+/* =====================================================
+   SHARE
+   ===================================================== */
+
+function sharePost(postId){
+
+    const url =
+        location.href +
+        "#post=" +
+        postId;
+
+
+    if(
+        navigator.share
+    ){
+
+        navigator.share({
+
+            title:"Instagame",
+
+            text:"Vezi această postare pe Instagame!",
+
+            url
+
+        }).catch(
+            () => {}
+        );
+
+    }else{
+
+        navigator.clipboard
+        ?.writeText(url);
+
+        toast(
+            "Link copiat!"
+        );
+    }
+}
+
+
+/* =====================================================
+   NAV ACTIVE
+   ===================================================== */
+
+function setActive(id){
+
+    document
+        .querySelectorAll(
+            ".bottom-nav button"
+        )
+        .forEach(
+            button =>
+            button.classList.remove(
+                "active"
+            )
+        );
+
+
+    const button =
+        document.getElementById(id);
+
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+    }
+}
+
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+
+function defaultAvatar(name){
+
+    return (
+        "https://ui-avatars.com/api/?name="
+        +
+        encodeURIComponent(name)
+        +
+        "&background=222&color=fff"
+    );
+}
+
+
+function escapeHtml(text){
+
+    return String(text || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+function toast(message){
+
+    const old =
+        document.querySelector(
+            ".toast"
+        );
+
+
+    if(old)
+        old.remove();
+
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+
+    element.className =
+        "toast";
+
+
+    element.textContent =
+        message;
+
+
+    document.body.appendChild(
+        element
+    );
+
+
+    setTimeout(
+        () => element.remove(),
+        2500
+    );
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+startup();
+
+</script>
+
+</body>
+</html>
+```
